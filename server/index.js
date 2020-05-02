@@ -21,6 +21,14 @@ app.get("/markdown/:sourceId", async (req, res) => {
   res.json({markdown:source.markdown});
 });
 
+// Get suggestion
+app.get("/markdown/:sourceId/:suggestionId", async (req, res) => {
+  const {sourceId,suggestionId} = req.params
+  const suggestion = await api.getSuggestion(suggestionId);
+
+  res.json(suggestion);
+});
+
 // Create source
 app.post("/markdown", async (req, res) => {
   const {markdown} = req.body

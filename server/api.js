@@ -38,8 +38,20 @@ const getSource = async (id) => {
   return entry;
 };
 
+const getSuggestion = async (id) => {
+  const response = await fetch(`${API_URL}/suggestions/${id}.json`, {
+    method: "GET",
+  });
+
+  const entry = await response.json();
+  log("Markdown suggestion entry fetched", entry);
+
+  return entry;
+};
+
 module.exports = {
   log,
   createSource,
-  getSource
+  getSource,
+  getSuggestion,
 };
