@@ -1,5 +1,5 @@
-const fetch = require("node-fetch");
-const uuid = require('uuid')
+const fetch = require('node-fetch');
+const uuid = require('uuid');
 
 const API_URL = `https://${process.env.FIREBASE_ID}.firebaseio.com`;
 
@@ -7,44 +7,44 @@ const log = function(...args) {
   args.forEach(arg => {
     console.log(arg);
   });
-  console.log("\n\n");
+  console.log('\n\n');
 };
 
 const createSource = async (markdown) => {
-  log(markdown)
-  const authId = uuid.v4()
+  log(markdown);
+  const authId = uuid.v4();
   const response = await fetch(`${API_URL}/entries.json`, {
-    method: "POST",
+    method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
-    body: `{"markdown": "${markdown}","authId":"${authId}"}`
+    body: `{"markdown": "${markdown}","authId":"${authId}"}`,
   });
 
   const entry = await response.json();
-  log("Markdown source entry created", entry);
+  log('Markdown source entry created', entry);
 
-  return {authId,...entry};
+  return {authId, ...entry};
 };
 
 const getSource = async (id) => {
   const response = await fetch(`${API_URL}/entries/${id}.json`, {
-    method: "GET",
+    method: 'GET',
   });
 
   const entry = await response.json();
-  log("Markdown source entry fetched", entry);
+  log('Markdown source entry fetched', entry);
 
   return entry;
 };
 
 const getSuggestion = async (id) => {
   const response = await fetch(`${API_URL}/suggestions/${id}.json`, {
-    method: "GET",
+    method: 'GET',
   });
 
   const entry = await response.json();
-  log("Markdown suggestion entry fetched", entry);
+  log('Markdown suggestion entry fetched', entry);
 
   return entry;
 };
