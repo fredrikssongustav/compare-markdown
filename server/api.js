@@ -27,7 +27,19 @@ const createSource = async (markdown) => {
   return {authId,...entry};
 };
 
+const getSource = async (id) => {
+  const response = await fetch(`${API_URL}/entries/${id}.json`, {
+    method: "GET",
+  });
+
+  const entry = await response.json();
+  log("Markdown source entry fetched", entry);
+
+  return entry;
+};
+
 module.exports = {
   log,
   createSource,
+  getSource
 };

@@ -12,6 +12,15 @@ const app = express();
 const port = 8080;
 
 app.use(bodyParser.json());
+
+// Get source
+app.get("/markdown/:sourceId", async (req, res) => {
+  const {sourceId} = req.params
+  const source = await api.getSource(sourceId);
+
+  res.json({markdown:source.markdown});
+});
+
 // Create source
 app.post("/markdown", async (req, res) => {
   const {markdown} = req.body
