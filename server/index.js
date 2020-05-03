@@ -37,4 +37,14 @@ app.post('/markdown', async (req, res) => {
   res.json(source);
 });
 
+// Create suggestion for source
+app.post('/markdown/:id/suggestion', async (req, res) => {
+  const {id} = req.params;
+  const {markdown} = req.body;
+  const suggestion = await api.createSuggestion(markdown);
+  const source = await api.addSuggestionToSource(id, suggestion.name);
+
+  res.json(suggestion);
+});
+
 app.listen(port, () => console.log(`Example app listening on port ${port}.`));
